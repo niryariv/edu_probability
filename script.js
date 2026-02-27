@@ -1,0 +1,186 @@
+const tabs = [...document.querySelectorAll('.tab-btn')];
+const experiments = [...document.querySelectorAll('.experiment')];
+const focusToggle = document.getElementById('focus-toggle');
+
+const dailyTasks = [
+  'הטילו מטבע 20 פעמים ובדקו כמה יצא עץ.',
+  'גלגלו קובייה 30 פעמים ובדקו איזה מספר יצא הכי הרבה.',
+  'נסו לנחש מה הסיכוי לקבל מספר זוגי בקובייה.',
+  'בצעו 15 סיבובי גלגל והשוו בין אדום לכחול.'
+];
+document.getElementById('daily-task').textContent =
+  dailyTasks[new Date().getDate() % dailyTasks.length];
+
+document.querySelectorAll('[data-scroll]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const target = document.querySelector(btn.dataset.scroll);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+tabs.forEach((tab) => {
+  tab.addEventListener('click', () => {
+    tabs.forEach((t) => t.classList.toggle('active', t === tab));
+    experiments.forEach((exp) => exp.classList.toggle('active', exp.id === tab.dataset.tab));
+  });
+});
+
+focusToggle.addEventListener('click', () => {
+  document.body.classList.toggle('focus-mode');
+});
+
+let heads = 0;
+let tails = 0;
+
+function updateCoinView() {
+  const total = heads + tails;
+  const rate = total ? Math.round((heads / total) * 100) : 0;
+  document.getElementById('heads-count').textContent = String(heads);
+  document.getElementById('tails-count').textContent = String(tails);
+  document.getElementById('coin-total').textContent = String(total);
+  document.getElementById('heads-bar').style.width = `${rate}%`;
+  document.getElementById('heads-rate').textContent = `${rate}%`;
+}
+
+function flipCoin(times) {
+  for (let i = 0; i < times; i += 1) {
+    if (Math.random() < 0.5) {
+      heads += 1;
+    } else {
+      tails += 1;
+    }
+  }
+  updateCoinView();
+}
+
+document.getElementById('flip-once').addEventListener('click', () => flipCoin(1));
+document.getElementById('flip-ten').addEventListener('click', () => flipCoin(10));
+document.getElementById('coin-reset').addEventListener('click', () => {
+  heads = 0;
+  tails = 0;
+  updateCoinView();
+});
+
+const diceCounts = [0, 0, 0, 0, 0, 0];
+const diceGrid = document.getElementById('dice-grid');
+
+function renderDice() {
+  diceGrid.innerHTML = '';
+  diceCounts.forEach((count, idx) => {
+    const cell = document.createElement('div');
+    cell.className = 'dice-cell';
+    cell.textContent = `${idx + 1}: ${count}`;
+    diceGrid.appendChild(cell);
+  });
+}
+
+function rollDice(times) {
+  for (let i = 0; i < times; i += 1) {
+    const result = Math.floor(Math.random() * 6);
+    diceCounts[result] += 1;
+  }
+  renderDice();
+}
+
+document.getElementById('roll-once').addEventListener('click', () => rollDice(1));
+document.getElementById('roll-twenty').addEventListener('click', () => rollDice(20));
+document.getElementById('dice-reset').addEventListener('click', () => {
+  diceCounts.fill(0);
+  renderDice();
+});
+
+const spinnerCounts = { red: 0, blue: 0, green: 0 };
+
+function spin(times) {
+  for (let i = 0; i < times; i += 1) {
+    const r = Math.random();
+    if (r < 0.5) {
+      spinnerCounts.red += 1;
+    } else if (r < 0.8) {
+      spinnerCounts.blue += 1;
+    } else {
+      spinnerCounts.green += 1;
+    }
+  }
+
+  document.getElementById('red-count').textContent = String(spinnerCounts.red);
+  document.getElementById('blue-count').textContent = String(spinnerCounts.blue);
+  document.getElementById('green-count').textContent = String(spinnerCounts.green);
+}
+
+document.getElementById('spin-once').addEventListener('click', () => spin(1));
+document.getElementById('spin-fifteen').addEventListener('click', () => spin(15));
+document.getElementById('spin-reset').addEventListener('click', () => {
+  spinnerCounts.red = 0;
+  spinnerCounts.blue = 0;
+  spinnerCounts.green = 0;
+  spin(0);
+});
+
+const questions = [
+  {
+    q: 'מה ההסתברות לקבל עץ בהטלת מטבע הוגן?',
+    answers: ['1/2', '1/6', '1/3'],
+    correct: 0
+  },
+  {
+    q: 'מה הסיכוי לקבל מספר זוגי בקובייה?',
+    answers: ['1/2', '1/3', '1/6'],
+    correct: 0
+  },
+  {
+    q: 'איזה אירוע הוא בלתי אפשרי בקובייה רגילה?',
+    answers: ['לקבל 7', 'לקבל 2', 'לקבל מספר קטן מ־6'],
+    correct: 0
+  },
+  {
+    q: 'אם בגלגל אדום=50%, מה הכי סביר שיצא?',
+    answers: ['אדום', 'כחול', 'ירוק'],
+    correct: 0
+  }
+];
+
+let streak = 0;
+let currentQuestion = 0;
+const questionText = document.getElementById('question-text');
+const answersWrap = document.getElementById('answers');
+const feedback = document.getElementById('quiz-feedback');
+const streakValue = document.getElementById('streak-value');
+
+function nextQuestion() {
+  const item = questions[currentQuestion % questions.length];
+  questionText.textContent = item.q;
+  answersWrap.innerHTML = '';
+
+  item.answers.forEach((label, index) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-ghost answer-btn';
+    btn.textContent = label;
+    btn.addEventListener('click', () => {
+      if (index === item.correct) {
+        streak += 1;
+        feedback.textContent = 'נכון מאוד';
+      } else {
+        streak = 0;
+        feedback.textContent = 'כמעט. נסו שוב בשאלה הבאה';
+      }
+
+      if (streak === 3) {
+        feedback.textContent = 'פתחתם תג הישג: אלופי הסתברות';
+      }
+
+      streakValue.textContent = String(streak);
+      currentQuestion += 1;
+      setTimeout(nextQuestion, 500);
+    });
+    answersWrap.appendChild(btn);
+  });
+}
+
+renderDice();
+updateCoinView();
+spin(0);
+nextQuestion();

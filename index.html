@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>הרפתקת הסתברות</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero-content">
+        <p class="kicker">גילאי 10-12</p>
+        <h1>הרפתקת הסתברות</h1>
+        <p class="subtitle">
+          לומדים הסתברות דרך משחקים מהירים, תוצאות מיידיות ומשימות קצרות שקל להתרכז בהן.
+        </p>
+        <div class="hero-actions">
+          <button id="focus-toggle" class="btn btn-secondary" type="button">מצב פוקוס</button>
+          <button class="btn" type="button" data-scroll="#lab">מתחילים עכשיו</button>
+        </div>
+      </div>
+      <div class="hero-card" aria-live="polite">
+        <h2>המשימה היומית</h2>
+        <p id="daily-task">הטילו מטבע 20 פעמים ובדקו כמה יצא עץ.</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="concept-grid">
+        <article class="concept">
+          <h3>סיכוי בטוח</h3>
+          <p>אירוע שיקרה תמיד. לדוגמה: בקובייה רגילה תמיד יצא מספר בין 1 ל־6.</p>
+        </article>
+        <article class="concept">
+          <h3>סיכוי אפשרי</h3>
+          <p>אירוע שיכול לקרות לפעמים. לדוגמה: לקבל מספר זוגי בקובייה.</p>
+        </article>
+        <article class="concept">
+          <h3>סיכוי בלתי אפשרי</h3>
+          <p>אירוע שלא יכול לקרות. לדוגמה: לקבל 9 בקובייה רגילה.</p>
+        </article>
+      </section>
+
+      <section id="lab" class="lab">
+        <div class="panel">
+          <h2>מעבדת ניסויים</h2>
+          <p>בצעו ניסויים אמיתיים וראו איך המספרים מתקרבים להסתברות התיאורטית.</p>
+          <div class="tab-buttons">
+            <button type="button" class="tab-btn active" data-tab="coin">מטבע</button>
+            <button type="button" class="tab-btn" data-tab="dice">קובייה</button>
+            <button type="button" class="tab-btn" data-tab="spinner">גלגל</button>
+          </div>
+        </div>
+
+        <div id="coin" class="experiment active" role="region" aria-label="ניסוי מטבע">
+          <h3>הטלת מטבע</h3>
+          <div class="controls">
+            <button type="button" class="btn" id="flip-once">הטלה אחת</button>
+            <button type="button" class="btn btn-secondary" id="flip-ten">10 הטלות</button>
+            <button type="button" class="btn btn-ghost" id="coin-reset">איפוס</button>
+          </div>
+          <div class="stats">
+            <p>עץ: <strong id="heads-count">0</strong></p>
+            <p>פלי: <strong id="tails-count">0</strong></p>
+            <p>סה"כ: <strong id="coin-total">0</strong></p>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar"><span id="heads-bar"></span></div>
+            <div class="bar-labels">
+              <span>עץ</span>
+              <span id="heads-rate">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="dice" class="experiment" role="region" aria-label="ניסוי קובייה">
+          <h3>הטלת קובייה</h3>
+          <div class="controls">
+            <button type="button" class="btn" id="roll-once">גלגול אחד</button>
+            <button type="button" class="btn btn-secondary" id="roll-twenty">20 גלגולים</button>
+            <button type="button" class="btn btn-ghost" id="dice-reset">איפוס</button>
+          </div>
+          <div class="dice-grid" id="dice-grid"></div>
+          <p class="hint">שימו לב האם כל המספרים מופיעים בערך באותה תדירות.</p>
+        </div>
+
+        <div id="spinner" class="experiment" role="region" aria-label="ניסוי גלגל">
+          <h3>גלגל הסתברות</h3>
+          <p>הגלגל לא שווה: אדום 50%, כחול 30%, ירוק 20%.</p>
+          <div class="controls">
+            <button type="button" class="btn" id="spin-once">סיבוב</button>
+            <button type="button" class="btn btn-secondary" id="spin-fifteen">15 סיבובים</button>
+            <button type="button" class="btn btn-ghost" id="spin-reset">איפוס</button>
+          </div>
+          <div class="stats">
+            <p>אדום: <strong id="red-count">0</strong></p>
+            <p>כחול: <strong id="blue-count">0</strong></p>
+            <p>ירוק: <strong id="green-count">0</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="quiz">
+        <h2>אתגר מהיר (60 שניות)</h2>
+        <p>בחרו את התשובה הנכונה. 3 תשובות נכונות ברצף פותחות תג הישג.</p>
+        <div class="question-card">
+          <p id="question-text"></p>
+          <div id="answers" class="answers"></div>
+          <p id="quiz-feedback" aria-live="polite"></p>
+          <p class="streak">רצף הצלחות: <strong id="streak-value">0</strong></p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>נבנה ללמידה קצרה, ברורה ומהנה. אפשר לחזור לניסוי אחד בכל פעם.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
