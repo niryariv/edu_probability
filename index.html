@@ -167,6 +167,10 @@
 
         <div id="coin" class="experiment active" role="region" aria-label="ניסוי מטבע">
           <h3>הטלת מטבע</h3>
+          <div class="visual-card">
+            <div id="coin-visual" class="coin-visual">?</div>
+            <p id="coin-last" class="visual-label">תוצאה אחרונה: עדיין לא בוצעה הטלה</p>
+          </div>
           <div class="controls">
             <button type="button" class="btn" id="flip-once">הטלה אחת</button>
             <button type="button" class="btn btn-secondary" id="flip-ten">10 הטלות</button>
@@ -188,6 +192,10 @@
 
         <div id="dice" class="experiment" role="region" aria-label="ניסוי קובייה">
           <h3>הטלת קובייה</h3>
+          <div class="visual-card">
+            <div id="dice-visual" class="dice-visual">⚀</div>
+            <p id="dice-last" class="visual-label">תוצאה אחרונה: 1</p>
+          </div>
           <div class="controls">
             <button type="button" class="btn" id="roll-once">גלגול אחד</button>
             <button type="button" class="btn btn-secondary" id="roll-twenty">20 גלגולים</button>
@@ -200,6 +208,12 @@
         <div id="spinner" class="experiment" role="region" aria-label="ניסוי גלגל">
           <h3>גלגל הסתברות</h3>
           <p>הגלגל לא שווה: אדום 50%, כחול 30%, ירוק 20%.</p>
+          <div class="visual-card">
+            <div id="spinner-visual" class="spinner-visual">
+              <span class="pointer">▲</span>
+            </div>
+            <p id="spinner-last" class="visual-label">תוצאה אחרונה: עדיין לא בוצע סיבוב</p>
+          </div>
           <div class="controls">
             <button type="button" class="btn" id="spin-once">סיבוב</button>
             <button type="button" class="btn btn-secondary" id="spin-fifteen">15 סיבובים</button>

@@ -3,6 +3,7 @@ const experiments = [...document.querySelectorAll('.experiment')];
 const focusToggle = document.getElementById('focus-toggle');
 const unitTabs = [...document.querySelectorAll('.unit-tab')];
 const unitCards = [...document.querySelectorAll('.unit-card')];
+const diceSymbols = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
 
 const dailyTasks = [
   'הטילו מטבע 20 פעמים ובדקו כמה יצא עץ.',
@@ -60,6 +61,8 @@ document.getElementById('calc-btn').addEventListener('click', runProbabilityCalc
 
 let heads = 0;
 let tails = 0;
+const coinVisual = document.getElementById('coin-visual');
+const coinLast = document.getElementById('coin-last');
 
 function updateCoinView() {
   const total = heads + tails;
@@ -72,13 +75,22 @@ function updateCoinView() {
 }
 
 function flipCoin(times) {
+  let lastResult = 'heads';
   for (let i = 0; i < times; i += 1) {
     if (Math.random() < 0.5) {
       heads += 1;
+      lastResult = 'heads';
     } else {
       tails += 1;
+      lastResult = 'tails';
     }
   }
+  coinVisual.textContent = lastResult === 'heads' ? 'עץ' : 'פלי';
+  coinVisual.classList.toggle('tails', lastResult === 'tails');
+  coinVisual.classList.remove('flip');
+  void coinVisual.offsetWidth;
+  coinVisual.classList.add('flip');
+  coinLast.textContent = `תוצאה אחרונה: ${lastResult === 'heads' ? 'עץ' : 'פלי'}`;
   updateCoinView();
 }
 
@@ -87,11 +99,16 @@ document.getElementById('flip-ten').addEventListener('click', () => flipCoin(10)
 document.getElementById('coin-reset').addEventListener('click', () => {
   heads = 0;
   tails = 0;
+  coinVisual.textContent = '?';
+  coinVisual.classList.remove('tails');
+  coinLast.textContent = 'תוצאה אחרונה: עדיין לא בוצעה הטלה';
   updateCoinView();
 });
 
 const diceCounts = [0, 0, 0, 0, 0, 0];
 const diceGrid = document.getElementById('dice-grid');
+const diceVisual = document.getElementById('dice-visual');
+const diceLast = document.getElementById('dice-last');
 
 function renderDice() {
   diceGrid.innerHTML = '';
@@ -104,10 +121,17 @@ function renderDice() {
 }
 
 function rollDice(times) {
+  let lastResult = 1;
   for (let i = 0; i < times; i += 1) {
     const result = Math.floor(Math.random() * 6);
     diceCounts[result] += 1;
+    lastResult = result + 1;
   }
+  diceVisual.textContent = diceSymbols[lastResult - 1];
+  diceVisual.classList.remove('roll');
+  void diceVisual.offsetWidth;
+  diceVisual.classList.add('roll');
+  diceLast.textContent = `תוצאה אחרונה: ${lastResult}`;
   renderDice();
 }
 
@@ -115,21 +139,36 @@ document.getElementById('roll-once').addEventListener('click', () => rollDice(1)
 document.getElementById('roll-twenty').addEventListener('click', () => rollDice(20));
 document.getElementById('dice-reset').addEventListener('click', () => {
   diceCounts.fill(0);
+  diceVisual.textContent = '⚀';
+  diceLast.textContent = 'תוצאה אחרונה: 1';
   renderDice();
 });
 
 const spinnerCounts = { red: 0, blue: 0, green: 0 };
+const spinnerVisual = document.getElementById('spinner-visual');
+const spinnerLast = document.getElementById('spinner-last');
 
 function spin(times) {
+  let lastColor = '';
   for (let i = 0; i < times; i += 1) {
     const r = Math.random();
     if (r < 0.5) {
       spinnerCounts.red += 1;
+      lastColor = 'אדום';
     } else if (r < 0.8) {
       spinnerCounts.blue += 1;
+      lastColor = 'כחול';
     } else {
       spinnerCounts.green += 1;
+      lastColor = 'ירוק';
     }
+  }
+
+  if (times > 0) {
+    spinnerVisual.classList.remove('spin');
+    void spinnerVisual.offsetWidth;
+    spinnerVisual.classList.add('spin');
+    spinnerLast.textContent = `תוצאה אחרונה: ${lastColor}`;
   }
 
   document.getElementById('red-count').textContent = String(spinnerCounts.red);
@@ -143,6 +182,7 @@ document.getElementById('spin-reset').addEventListener('click', () => {
   spinnerCounts.red = 0;
   spinnerCounts.blue = 0;
   spinnerCounts.green = 0;
+  spinnerLast.textContent = 'תוצאה אחרונה: עדיין לא בוצע סיבוב';
   spin(0);
 });
 
