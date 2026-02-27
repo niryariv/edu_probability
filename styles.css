@@ -133,6 +133,28 @@ main {
   gap: 1rem;
 }
 
+.examples-bank {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.example-item {
+  background: var(--panel);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 0.8rem 1rem;
+}
+
+.example-item summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #1c4564;
+}
+
+.example-item p {
+  margin: 0.6rem 0 0;
+}
+
 .unit-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -331,6 +353,7 @@ footer {
 }
 
 .focus-mode .concept-grid,
+.focus-mode .examples-bank,
 .focus-mode .quiz,
 .focus-mode footer,
 .focus-mode .hero-card {
