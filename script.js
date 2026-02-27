@@ -1,6 +1,8 @@
 const tabs = [...document.querySelectorAll('.tab-btn')];
 const experiments = [...document.querySelectorAll('.experiment')];
 const focusToggle = document.getElementById('focus-toggle');
+const unitTabs = [...document.querySelectorAll('.unit-tab')];
+const unitCards = [...document.querySelectorAll('.unit-card')];
 
 const dailyTasks = [
   'הטילו מטבע 20 פעמים ובדקו כמה יצא עץ.',
@@ -27,9 +29,34 @@ tabs.forEach((tab) => {
   });
 });
 
+unitTabs.forEach((tab) => {
+  tab.addEventListener('click', () => {
+    unitTabs.forEach((t) => t.classList.toggle('active', t === tab));
+    unitCards.forEach((card) => card.classList.toggle('active', card.id === tab.dataset.unit));
+  });
+});
+
 focusToggle.addEventListener('click', () => {
   document.body.classList.toggle('focus-mode');
 });
+
+const favInput = document.getElementById('fav-input');
+const allInput = document.getElementById('all-input');
+const calcOutput = document.getElementById('calc-output');
+
+function runProbabilityCalc() {
+  const fav = Number(favInput.value);
+  const all = Number(allInput.value);
+  if (!Number.isFinite(fav) || !Number.isFinite(all) || all <= 0 || fav < 0 || fav > all) {
+    calcOutput.textContent = 'בדקו ערכים: הרצוי צריך להיות בין 0 לבין הסך הכולל.';
+    return;
+  }
+
+  const percent = ((fav / all) * 100).toFixed(1);
+  calcOutput.textContent = `תוצאה: ${fav}/${all} (${percent}%)`;
+}
+
+document.getElementById('calc-btn').addEventListener('click', runProbabilityCalc);
 
 let heads = 0;
 let tails = 0;
@@ -184,3 +211,4 @@ renderDice();
 updateCoinView();
 spin(0);
 nextQuestion();
+runProbabilityCalc();

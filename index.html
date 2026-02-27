@@ -47,6 +47,56 @@
         </article>
       </section>
 
+      <section class="math-units">
+        <div class="panel">
+          <h2>יחידות מתמטיקה של הסתברות</h2>
+          <p>לומדים את הכלל, רואים דוגמה, ואז מתרגלים בחישוב קצר.</p>
+          <div class="unit-tabs" role="tablist" aria-label="יחידות לימוד">
+            <button type="button" class="unit-tab active" data-unit="unit-1">יחידה 1</button>
+            <button type="button" class="unit-tab" data-unit="unit-2">יחידה 2</button>
+            <button type="button" class="unit-tab" data-unit="unit-3">יחידה 3</button>
+            <button type="button" class="unit-tab" data-unit="unit-4">יחידה 4</button>
+          </div>
+        </div>
+
+        <article id="unit-1" class="unit-card active" role="region" aria-label="יחידה 1">
+          <h3>יחידה 1: נוסחת הבסיס</h3>
+          <p class="formula">הסתברות = מספר התוצאות הרצויות / מספר כל התוצאות האפשריות</p>
+          <p>דוגמה: בקובייה רגילה, הסיכוי לקבל 4 הוא 1/6 כי יש תוצאה רצויה אחת מתוך 6.</p>
+        </article>
+
+        <article id="unit-2" class="unit-card" role="region" aria-label="יחידה 2">
+          <h3>יחידה 2: המרה לאחוזים</h3>
+          <p class="formula">אחוז הסתברות = שבר הסתברות כפול 100</p>
+          <p>דוגמה: 1/2 = 50%, 1/4 = 25%, 3/4 = 75%.</p>
+        </article>
+
+        <article id="unit-3" class="unit-card" role="region" aria-label="יחידה 3">
+          <h3>יחידה 3: הסתברות משלימה</h3>
+          <p class="formula">P(לא יקרה) = 1 - P(יקרה)</p>
+          <p>דוגמה: אם הסיכוי לקבל זוגי הוא 1/2, אז הסיכוי לא לקבל זוגי הוא גם 1/2.</p>
+        </article>
+
+        <article id="unit-4" class="unit-card" role="region" aria-label="יחידה 4">
+          <h3>יחידה 4: השוואת סיכויים</h3>
+          <p class="formula">שבר גדול יותר = סיכוי גבוה יותר</p>
+          <p>דוגמה: 3/8 גדול מ־1/4, לכן 3/8 הוא סיכוי גבוה יותר.</p>
+        </article>
+
+        <div class="prob-calc">
+          <h3>מחשבון הסתברות</h3>
+          <p>הזינו כמה תוצאות רצויות יש וכמה אפשרויות יש בסך הכל.</p>
+          <div class="calc-fields">
+            <label for="fav-input">תוצאות רצויות</label>
+            <input id="fav-input" type="number" min="0" value="1" />
+            <label for="all-input">סה"כ אפשרויות</label>
+            <input id="all-input" type="number" min="1" value="6" />
+            <button type="button" class="btn" id="calc-btn">חשב</button>
+          </div>
+          <p id="calc-output" aria-live="polite">תוצאה: 1/6 (16.7%)</p>
+        </div>
+      </section>
+
       <section id="lab" class="lab">
         <div class="panel">
           <h2>מעבדת ניסויים</h2>

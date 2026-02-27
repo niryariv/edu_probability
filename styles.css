@@ -128,6 +128,77 @@ main {
   gap: 1rem;
 }
 
+.math-units {
+  display: grid;
+  gap: 1rem;
+}
+
+.unit-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.unit-tab {
+  border: 2px solid #d7e5fa;
+  background: #f6faff;
+  padding: 0.5rem 0.9rem;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.unit-tab.active {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.unit-card,
+.prob-calc {
+  background: var(--panel);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 1.1rem 1.2rem;
+}
+
+.unit-card {
+  display: none;
+}
+
+.unit-card.active {
+  display: block;
+}
+
+.formula {
+  background: #fff6ef;
+  border: 2px solid #ffd8c2;
+  border-radius: 12px;
+  padding: 0.55rem 0.7rem;
+  font-weight: 700;
+}
+
+.calc-fields {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0.55rem;
+  align-items: center;
+  max-width: 430px;
+}
+
+.calc-fields input {
+  border: 2px solid #d7e5fa;
+  border-radius: 10px;
+  padding: 0.45rem 0.55rem;
+  font: inherit;
+}
+
+#calc-output {
+  margin-bottom: 0;
+  font-weight: 700;
+  color: #1f4766;
+}
+
 .panel {
   padding: 1.25rem;
 }
@@ -277,5 +348,9 @@ footer {
 
   .dice-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .calc-fields {
+    grid-template-columns: 1fr;
   }
 }
